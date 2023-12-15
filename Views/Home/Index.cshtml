@@ -1,0 +1,57 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+@Html.EJS().Button("togglebtn").Content("Add NavigationLine").IsPrimary(true).Render()
+
+@(Html.EJS().Maps("container")
+
+        .Layers(layers =>
+
+        {
+
+            layers.ShapeData(ViewBag.shapeData).Add();
+
+        })
+
+        .ZoomSettings(settings =>
+
+        {
+
+            settings.Enable(true);
+
+            settings.MinZoom(1);
+
+            settings.MaxZoom(20);
+
+            settings.MouseWheelZoom(true);
+
+        })
+
+        .Render())
+
+<script>
+
+    document.getElementById('togglebtn').onclick = function () {
+        var maps = document.getElementById('container').ej2_instances[0];
+        maps.layers[0].navigationLineSettings = [{
+
+            visible: true,
+
+            latitude: [40.7128, 36.7783],
+
+            longitude: [-74.0060, -119.4179],
+
+            color: 'black',
+
+            angle: 90,
+
+            width: 2,
+
+            dashArray: '4',
+
+        }];
+        maps.refresh();
+    };
+
+</script>
